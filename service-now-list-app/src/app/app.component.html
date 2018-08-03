@@ -1,0 +1,42 @@
+<app-header></app-header>
+
+<section>
+    <div class="container">
+        <div class="filter-wrapper py-4">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="form-group">
+                        <input type="text" class="form-control search" placeholder="Search by API or Description" name="searchText" [(ngModel)]="searchText" #searchTxt="ngModel" (keydown.enter)="search()">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <select class="form-control" id="fields" (change)="sort($event.target.value)">
+                        <option value="-1">Sort By</option>
+                        <option value="API">API</option>
+                        <option value="Description">Description</option>
+                        <option value="Category">Category</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="list-wrapper py-4" id="draggableCards" (window:scroll)="onScroll($event)">
+            <div class="card mb-2" *ngFor="let animal of animals | sort: key : reverse" >
+                <div class="card-header">
+                    {{animal.API}}
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>{{animal.Description}}</p>
+                        <footer class="blockquote-footer">{{animal.Category}}</footer>
+                    </blockquote>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+
+<app-footer></app-footer>

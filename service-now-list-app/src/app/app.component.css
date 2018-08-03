@@ -1,0 +1,18 @@
+.filter-wrapper{
+    padding: 20px;
+}
+.filter-wrapper .search{
+    text-align: center;
+}
+.card:nth-child(even){
+    background-color:#f5fff5;
+}
+.card:nth-child(odd){
+    background-color: #f7f9ff;
+}
+#draggableCards .card-header {
+    cursor: move;
+}
+section{
+    background-color: whitesmoke;
+}
