@@ -6,7 +6,8 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="form-group">
-                        <input type="text" class="form-control search" placeholder="Search by API or Description" name="searchText" [(ngModel)]="searchText" #searchTxt="ngModel" (keydown.enter)="search()">
+                        <input type="text" class="form-control search" placeholder="Search by API or Description" name="searchText" [(ngModel)]="searchText"
+                            #searchTxt="ngModel" (keydown.enter)="search()">
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -20,8 +21,8 @@
             </div>
         </div>
 
-        <div class="list-wrapper py-4" id="draggableCards" (window:scroll)="onScroll($event)">
-            <div class="card mb-2" *ngFor="let animal of animals | sort: key : reverse" >
+        <div class="list-wrapper py-4" id="draggableCards" (window:scroll)="onScroll($event)" *ngIf="animals.length !== 0">
+            <div class="card mb-2" *ngFor="let animal of animals | sort: key : reverse">
                 <div class="card-header">
                     {{animal.API}}
                 </div>
@@ -32,9 +33,17 @@
                     </blockquote>
                 </div>
             </div>
-
         </div>
 
+        <div *ngIf="animals.length === 0 && !listError && !searchError" class="text-center pb-5">
+            <h3> No data found.</h3>
+        </div>
+        <div *ngIf="listError" class="text-center pb-5">
+            {{listError}}
+        </div>
+        <div *ngIf="searchError" class="text-center pb-5">
+            {{searchError}}
+        </div>
 
     </div>
 </section>
