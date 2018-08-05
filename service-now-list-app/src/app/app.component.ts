@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
   mergeAnimals: any = [];
   originalList: any = [];
   startPosition: number = 0;
-  endPosition: number = 3;
+  endPosition: number = 4;
   listError: string = null;
   searchError: string = null;
 
@@ -33,20 +33,6 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit() {
-    //Function to rearrange the cards
-    $(function ($) {
-      var cardsList = $('#draggableCards');
-      cardsList.sortable({
-        handle: '.card-header',
-        update: function () {
-          $('.card', cardsList).each(function (index, elem) {
-            var $listItem = $(elem),
-              newIndex = $listItem.index();
-          });
-        }
-      });
-    });
-
     //loads the list on page load. By default it loads only 3 items.
     this.list();
   }
@@ -71,11 +57,28 @@ export class AppComponent implements OnInit {
         this.animals = data.entries;
         this.originalList = this.animals;
         this.animals = this.animals.slice(this.startPosition, this.endPosition);
+        this.cardRearragmentHelper();
       }
     },
       error => {
         this.listError = "Something went wrong. Please try again after sometime."
       });
+  }
+
+  //Function to rearrange the cards
+  cardRearragmentHelper() {
+    $(function ($) {
+      var cardsList = $('#draggableCards');
+      cardsList.sortable({
+        handle: '.card-header',
+        update: function () {
+          $('.card', cardsList).each(function (index, elem) {
+            var $listItem = $(elem),
+              newIndex = $listItem.index();
+          });
+        }
+      });
+    });
   }
 
   //Helper method to load items on scrolling

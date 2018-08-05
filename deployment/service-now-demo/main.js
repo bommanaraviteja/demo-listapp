@@ -158,23 +158,11 @@ var AppComponent = /** @class */ (function () {
         this.mergeAnimals = [];
         this.originalList = [];
         this.startPosition = 0;
-        this.endPosition = 3;
+        this.endPosition = 4;
         this.listError = null;
         this.searchError = null;
     }
     AppComponent.prototype.ngOnInit = function () {
-        //Function to rearrange the cards
-        $(function ($) {
-            var cardsList = $('#draggableCards');
-            cardsList.sortable({
-                handle: '.card-header',
-                update: function () {
-                    $('.card', cardsList).each(function (index, elem) {
-                        var $listItem = $(elem), newIndex = $listItem.index();
-                    });
-                }
-            });
-        });
         //loads the list on page load. By default it loads only 3 items.
         this.list();
     };
@@ -197,9 +185,24 @@ var AppComponent = /** @class */ (function () {
                 _this.animals = data.entries;
                 _this.originalList = _this.animals;
                 _this.animals = _this.animals.slice(_this.startPosition, _this.endPosition);
+                _this.cardRearragmentHelper();
             }
         }, function (error) {
             _this.listError = "Something went wrong. Please try again after sometime.";
+        });
+    };
+    //Function to rearrange the cards
+    AppComponent.prototype.cardRearragmentHelper = function () {
+        $(function ($) {
+            var cardsList = $('#draggableCards');
+            cardsList.sortable({
+                handle: '.card-header',
+                update: function () {
+                    $('.card', cardsList).each(function (index, elem) {
+                        var $listItem = $(elem), newIndex = $listItem.index();
+                    });
+                }
+            });
         });
     };
     //Helper method to load items on scrolling
